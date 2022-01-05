@@ -1,11 +1,8 @@
-/*
-Copyright © 2022 NAME HERE <EMAIL ADDRESS>
-
-*/
 package cmd
 
 import (
 	"fmt"
+	"strconv"
 
 	"github.com/spf13/cobra"
 )
@@ -16,7 +13,11 @@ var transferCmd = &cobra.Command{
 	Short: "Transfer SOL",
 	Long:  "Transfer SOL from your wallet to other Solana wallets.",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("transfer called")
+		fmt.Println("Recepient address: " + args[0])
+		fmt.Println("Amount to be sent: " + args[1])
+		amount, _ := strconv.ParseUint(args[1], 10, 64)
+		txhash, _ := Transfer(args[0], amount)
+		fmt.Println("Transaction complete.\nTransaction hash: " + txhash)
 	},
 }
 
